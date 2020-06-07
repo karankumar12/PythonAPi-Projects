@@ -35,22 +35,18 @@ def dispayMenu(sourceList):
         print("The choice was not in the given range, please enter again: ")
 
 
-
-def receiveArticles(text):
+#Function to make the GET request to receive the articles if the given source
+def receiveArticles(source):
     url = " https://newsapi.org/v1/articles"
 
     parameters = {
         'apiKey' : '4dbc17e007ab436fb66416009dfb59a8',
-        'source': text,
+        'source': source,
         'sortBy': 'top'
     }
 
     response = requests.get(url, params= parameters).json()
-
-    print(response);
-
     articles = response["articles"]
-
     results = [];
 
     for ar in articles:
@@ -58,7 +54,7 @@ def receiveArticles(text):
 
     return results
 
-
+#Function to take in an object of Articles, convert the title and desc into speech and read it out loud
 def convertToSpeech(results):
 
     j=0
@@ -88,10 +84,13 @@ for i in sources:
 #Display the menu to receive user choice
 choice = dispayMenu(sourceList)
 
-text = sourceList[choice].id
+#Receive the Source ID for the selected choice
+source = sourceList[choice].id
 
-results = receiveArticles(text)
+#Receive the articles from the given source
+results = receiveArticles(source)
 
+#Convert the articles text to speech and read it
 convertToSpeech(results)
 
 
