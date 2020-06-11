@@ -16,10 +16,14 @@ def getWeather(name):
     return requests.get( url, headers=headers, params=parameter).json()
 
 
+#Ask for user input of the city
 name = input("Please enter the name of the city: ")
+
 weather = getWeather(name)
 print(weather)
 weather = weather['main']
+
+#Print the temperature and feels like temperature
 print("{:02d}".format(1))
 temp = str(int(weather['temp'])- 273.150).strip("0")
 print("Current temperature: "+ temp)
